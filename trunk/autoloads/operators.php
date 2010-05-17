@@ -44,7 +44,52 @@ class eZQRCodeOperators
         try
         {
             $qr->size = $parameters['size'];
+        } catch ( Exception $e ) {
+            eZDebug::writeError( (string)$e );
+            return null;
+        }
+
+        // basic string
+        if ( is_string( $data ) )
+        {
             $qr->data = $data;
+        }
+
+        // object
+        elseif( is_object( $data ) )
+        {
+            // content object attribute
+            if ( $data instanceof eZContentObjectAttribute )
+            {
+                switch ( $data->attribute( 'data_type_string' ) )
+                {
+                    case 'ezstring':
+                        $qr->data = $data->attribute( 'content' );
+                        break;
+
+                    case 'ezemail':
+                        $qr->data = "mailto:" . $data->attribute( 'content' );
+                        break;
+
+                    case 'ezurl':
+                        eZDebug::writeDebug( $data->attribute( 'content' ) );
+                        $qr->data = $data->attribute( 'content' );
+                        break;
+
+                    default:
+                        eZDebug::writeError( "The qrcode operator only supports string, email and url attributes", __METHOD__ );
+                        return '';
+                }
+            }
+            else
+            {
+                eZDebug::writeError( "The qrcode operator only supports eZContentObjectAttribute objects", __METHOD__ );
+                return '';
+            }
+        }
+
+        try
+        {
             return $qr->getChartURI();
         } catch ( Exception $e ) {
             eZDebug::writeError( (string)$e );
