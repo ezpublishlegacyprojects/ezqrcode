@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<software>
+    <metadata>
+        <name>eZ QR Code</name>
+        <version>1.0-alpha</version>
+        <copyright>Copyright (c) Bertrand Dunogier 2010</copyright>
+        <license>GNU General Public License v2.0</license>
+        <info_url>http://projects.ez.no/ezqrcode</info_url>
+
+        <software>
+            <uses>
+                <name>Google chart API</name>
+                <license>N/A</license>
+                <copyright>Google, I guess</copyright>
+                <info_url>http://code.google.com/apis/chart/docs/gallery/chart_gall.html</info_url>
+                <version>N/A</version>
+            </uses>
+        </software>
+
+    </metadata>
+</software>
