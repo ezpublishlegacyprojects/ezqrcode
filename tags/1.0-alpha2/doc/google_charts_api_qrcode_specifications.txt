@@ -1,0 +1,38 @@
+=========================================================
+API Specification for Google charts API QRCode generation
+=========================================================
+
+Example URL
+===========
+http://chart.apis.google.com/chart?cht=qr&chs=100x100&chl=http%3A%2F%2Fwww.ez.no
+
+Parameters
+==========
+
+Chart type
+----------
+cht=qr
+Chart type = QRCode
+
+Chart size
+----------
+chs=50x50
+Chart size, 50x50 pixels
+
+Chart correction level
+----------------------
+chld=L|1
+Chart correction level + margin. L = 7% error correction (default), 1 = margin in rows, default = 4
+
+Chart data encoding
+-------------------
+
+choe=UTF-8
+Data encoding. Default = UTF-8
+
+Chart data
+----------
+chl=<data>
+Chart data
+
+Note: an URL has a max length of 2K. Use POST for larger data set.
