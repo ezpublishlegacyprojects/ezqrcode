@@ -61,7 +61,8 @@ class eZQRCodeOperators
             // content object attribute
             if ( $data instanceof eZContentObjectAttribute )
             {
-                switch ( $data->attribute( 'data_type_string' ) )
+                $datatypeString = $data->attribute( 'data_type_string' );
+                switch ( $datatypeString )
                 {
                     case 'ezstring':
                         $qr->data = $data->attribute( 'content' );
@@ -72,13 +73,28 @@ class eZQRCodeOperators
                         break;
 
                     case 'ezurl':
-                        eZDebug::writeDebug( $data->attribute( 'content' ) );
                         $qr->data = $data->attribute( 'content' );
                         break;
 
                     default:
-                        eZDebug::writeError( "The qrcode operator only supports string, email and url attributes", __METHOD__ );
-                        return '';
+                        $handlerOptions = new ezpExtensionOptions();
+                        $handlerOptions->iniFile = 'qrcode.ini';
+                        $handlerOptions->iniSection = 'Datatypes';
+                        $handlerOptions->iniVariable = 'Mapping';
+                        $handlerOptions->handlerIndex = $datatypeString;
+                        $handlerOptions->handlerParams = array( $data );
+
+                        $handler = eZExtension::getHandlerClass( $handlerOptions );
+
+                        if ( is_object( $handler ) )
+                        {
+                            $qr->data = $handler->data();
+                        }
+                        else
+                        {
+                            eZDebug::writeError( "No handler was found for datatype '$datatypeString'", __METHOD__ );
+                            return '';
+                        }
                 }
             }
             else

@@ -1,0 +1,43 @@
+=====================
+QR Code data handlers
+=====================
+
+QR codes by themselves require strings as input. These strings may vary a *lot*. For instance, URLs can be provided with
+at least three different syntax.
+
+The main point of this extension is that it should be easy and quick to transfer CMS content to a QR code.
+
+This is why handlers are required for datatypes, content classes...
+
+Datatype handlers
+=================
+
+Datatype handlers are easy. Given one content object attribute, a handler will return a string that can be interpreted
+by QR aware devices.
+
+This is made possible by QRDatatype handlers.
+
+Base, abstract class: eZQRDatatype
+----------------------------------
+
+This class is the base item when it comes to implementing a handler. It has to implement at least one method::
+
+    public function data();
+
+This method returns a string that will be the data for the QR code. The class makes available a member variable named
+``contentObjectAttribute``, that contains the currently handled content object attribute.
+
+Settings: qrcode.ini
+--------------------
+
+This handler then needs to be mapped to a datatype. This is done in a very standard way, using an array in qrcode.ini.
+
+This code example, in qrcode.ini, would map the eZQRDatatypeStuff handler to the ezstuff datatype::
+
+    [Datatypes]
+    Mapping[ezstuff]=eZQRDatatypeStuff
+
+Content classes
+===============
+
+To be determined :)
