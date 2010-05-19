@@ -1,3 +1,5 @@
 2010-05-19
 ----------
 - Added a more advanced eZURL handler, with support for two formats
+- Added a basic data abstract class (eZQRData)
+- Added a phonebook data class (eZQRDataPhonebook). Not linked to QR for now.
