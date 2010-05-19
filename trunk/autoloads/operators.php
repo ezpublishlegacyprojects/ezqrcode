@@ -72,10 +72,6 @@ class eZQRCodeOperators
                         $qr->data = "mailto:" . $data->attribute( 'content' );
                         break;
 
-                    case 'ezurl':
-                        $qr->data = $data->attribute( 'content' );
-                        break;
-
                     default:
                         $handlerOptions = new ezpExtensionOptions();
                         $handlerOptions->iniFile = 'qrcode.ini';
